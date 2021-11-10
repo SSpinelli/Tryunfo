@@ -8,9 +8,9 @@ class App extends React.Component {
     this.state = {
       cardName: '',
       cardDescription: '',
-      cardAttr1: '0',
-      cardAttr2: '0',
-      cardAttr3: '0',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
@@ -24,8 +24,22 @@ class App extends React.Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
     this.setState({ [name]: value }, () => {
-      const { cardName } = this.state;
-      return cardName === ''
+      const { cardName, cardDescription, cardAttr1,
+        cardAttr2, cardAttr3, cardImage, cardRare } = this.state;
+      const MAXNUMBER = 90;
+      const MINNUMBER = 0;
+      const MAXSUM = 210;
+      const SUMOFATTR = Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3);
+      return (
+        cardName === ''
+        || cardDescription === ''
+        || (cardAttr1 > MAXNUMBER || cardAttr1 < MINNUMBER)
+        || (cardAttr2 > MAXNUMBER || cardAttr2 < MINNUMBER)
+        || (cardAttr3 > MAXNUMBER || cardAttr3 < MINNUMBER)
+        || (SUMOFATTR > MAXSUM)
+        || cardImage === ''
+        || cardRare === ''
+      )
         ? this.setState({ isSaveButtonDisabled: true })
         : this.setState({ isSaveButtonDisabled: false });
     });
