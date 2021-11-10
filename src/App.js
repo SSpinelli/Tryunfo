@@ -8,15 +8,19 @@ class App extends React.Component {
     this.state = {
       cardName: '',
       cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
+      hasTrunfo: false,
       isSaveButtonDisabled: true,
+      cards: [],
     };
     this.onInputChange = this.onInputChange.bind(this);
+    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.newCard = this.newCard.bind(this);
   }
 
   onInputChange({ target }) {
@@ -45,6 +49,49 @@ class App extends React.Component {
     });
   }
 
+  onSaveButtonClick(click) {
+    const { newCard } = this;
+    click.preventDefault();
+    this.setState((moment) => (
+      { cards: [...moment.cards, newCard()] }
+    ));
+    this.resetForm();
+    console.log(this.state.cards);
+  }
+
+  newCard() {
+    const { cardName, cardDescription, cardAttr1,
+      cardAttr2, cardAttr3, cardImage, cardRare,
+      cardTrunfo, hasTrunfo } = this.state;
+
+    const createdCard = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      hasTrunfo,
+    };
+    return createdCard;
+  }
+
+  resetForm() {
+    this.setState(({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: '',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+    }));
+  }
+
   render() {
     const { cardName, cardDescription, cardAttr1,
       cardAttr2, cardAttr3, cardImage, cardRare,
@@ -63,6 +110,7 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.onInputChange }
+          onSaveButtonClick={ this.onSaveButtonClick }
           hasTrunfo={ false }
         />
         <Card

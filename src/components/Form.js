@@ -8,7 +8,7 @@ class Form extends React.Component {
       cardTrunfo, isSaveButtonDisabled, onInputChange,
       onSaveButtonClick } = this.props;
     return (
-      <form action="">
+      <form onSubmit={ onSaveButtonClick }>
         <label htmlFor="cardName">
           Nome:
           <input
