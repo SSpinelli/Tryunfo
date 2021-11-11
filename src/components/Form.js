@@ -83,7 +83,6 @@ class Form extends React.Component {
             <option value="muito raro">muito raro</option>
           </select>
         </label>
-
         {hasTrunfo
           ? <span>Você já tem um Super Trunfo em seu baralho</span>
           : (
@@ -98,7 +97,6 @@ class Form extends React.Component {
               />
             </label>
           )}
-
         <button
           type="submit"
           name="saveBtn"
