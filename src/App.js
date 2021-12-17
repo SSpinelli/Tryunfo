@@ -16,97 +16,90 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
-      deckOfCards: [],
+      deck: [],
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
-    this.newCard = this.newCard.bind(this);
-    this.deckHasTrunfo = this.deckHasTrunfo.bind(this);
+    this.enableButton = this.enableButton.bind(this);
+    this.checkStrings = this.checkStrings.bind(this);
+    this.checkNumbers = this.checkNumbers.bind(this);
+    this.createCard = this.createCard.bind(this);
   }
 
   onInputChange({ target }) {
-    const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-
-    this.setState({ [name]: value }, () => {
-      const { cardName, cardDescription, cardAttr1,
-        cardAttr2, cardAttr3, cardImage, cardRare } = this.state;
-      const MAXNUMBER = 90;
-      const MINNUMBER = 0;
-      const MAXSUM = 210;
-      const SUMOFATTR = Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3);
-      return (
-        cardName === ''
-        || cardDescription === ''
-        || (cardAttr1 > MAXNUMBER || cardAttr1 < MINNUMBER)
-        || (cardAttr2 > MAXNUMBER || cardAttr2 < MINNUMBER)
-        || (cardAttr3 > MAXNUMBER || cardAttr3 < MINNUMBER)
-        || (SUMOFATTR > MAXSUM)
-        || cardImage === ''
-        || cardRare === ''
-      )
-        ? this.setState({ isSaveButtonDisabled: true })
-        : this.setState({ isSaveButtonDisabled: false });
-    });
+    this.setState({ [target.name]: value }, () => this.enableButton());
   }
 
   onSaveButtonClick(click) {
     click.preventDefault();
-    this.setState((previousState) => (
-      { deckOfCards: [...previousState.deckOfCards, this.newCard()] }
-    ));
-    this.resetForm();
-    this.deckHasTrunfo();
-  }
+    const { deck, cardTrunfo } = this.state;
 
-  newCard() {
-    const { cardName, cardDescription, cardAttr1,
-      cardAttr2, cardAttr3, cardImage, cardRare,
-      cardTrunfo, hasTrunfo } = this.state;
+    this.setState({ deck: [...deck, this.createCard()] });
 
-    const createdCard = {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      cardRare,
-      cardTrunfo,
-      hasTrunfo,
-    };
-    return createdCard;
-  }
-
-  resetForm() {
-    this.setState(({
+    this.setState({
       cardName: '',
       cardDescription: '',
+      cardImage: '',
       cardAttr1: '0',
       cardAttr2: '0',
       cardAttr3: '0',
-      cardImage: '',
       cardRare: '',
-      cardTrunfo: false,
-      isSaveButtonDisabled: true,
-    }));
+    });
+
+    if (cardTrunfo) this.setState({ hasTrunfo: true });
   }
 
-  deckHasTrunfo() {
-    const { cardTrunfo } = this.state;
+  createCard() {
+    const { cardName, cardDescription, cardAttr1,
+      cardAttr2, cardAttr3, cardRare, cardTrunfo, cardImage } = this.state;
+    return {
+      cardName,
+      cardImage,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardDescription,
+      cardRare,
+      cardTrunfo,
+    };
+  }
 
-    if (cardTrunfo) {
-      this.setState({ hasTrunfo: true });
+  enableButton() {
+    if (this.checkStrings() && this.checkNumbers()) {
+      return this.setState({ isSaveButtonDisabled: false });
     }
+    this.setState({ isSaveButtonDisabled: true });
+  }
+
+  checkNumbers() {
+    const { cardAttr1, cardAttr2, cardAttr3 } = this.state;
+    const maxValue = 90;
+    const firstAttr = cardAttr1 >= 0 && cardAttr1 <= maxValue;
+    const secondAttr = cardAttr2 >= 0 && cardAttr2 <= maxValue;
+    const thirdAttr = cardAttr3 >= 0 && cardAttr3 <= maxValue;
+    const sumOfAttr = Number(cardAttr1) + Number(cardAttr2) + Number(cardAttr3);
+
+    const maxSum = 210;
+
+    return firstAttr && secondAttr && thirdAttr && sumOfAttr <= maxSum;
+  }
+
+  checkStrings() {
+    const { cardName, cardDescription, cardImage, cardRare } = this.state;
+
+    return cardName.length > 0
+      && cardDescription.length > 0
+      && cardImage.length > 0
+      && cardRare.length > 0;
   }
 
   render() {
-    const { cardName, cardDescription, cardAttr1,
-      cardAttr2, cardAttr3, cardImage, cardRare,
-      cardTrunfo, isSaveButtonDisabled, hasTrunfo, deckOfCards } = this.state;
+    const { cardName, cardDescription,
+      cardAttr1, cardAttr2, cardAttr3, cardImage,
+      cardRare, cardTrunfo, hasTrunfo, isSaveButtonDisabled, deck } = this.state;
     return (
-      <div>
-        <h1>Tryunfo</h1>
+      <>
         <Form
           cardName={ cardName }
           cardDescription={ cardDescription }
@@ -116,10 +109,10 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
+          hasTrunfo={ hasTrunfo }
           isSaveButtonDisabled={ isSaveButtonDisabled }
           onInputChange={ this.onInputChange }
           onSaveButtonClick={ this.onSaveButtonClick }
-          hasTrunfo={ hasTrunfo }
         />
         <Card
           cardName={ cardName }
@@ -131,19 +124,19 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-
-        {deckOfCards.map((card) => (<Card
-          key={ card.cardName }
-          cardName={ card.cardName }
-          cardDescription={ card.cardDescription }
-          cardAttr1={ card.cardAttr1 }
-          cardAttr2={ card.cardAttr2 }
-          cardAttr3={ card.cardAttr3 }
-          cardImage={ card.cardImage }
-          cardRare={ card.cardRare }
-          cardTrunfo={ card.cardTrunfo }
-        />))}
-      </div>
+        { deck.map((card) => (
+          <Card
+            key={ card.cardName }
+            cardName={ card.cardName }
+            cardDescription={ card.cardDescription }
+            cardAttr1={ card.cardAttr1 }
+            cardAttr2={ card.cardAttr2 }
+            cardAttr3={ card.cardAttr3 }
+            cardImage={ card.cardImage }
+            cardRare={ card.cardRare }
+            cardTrunfo={ card.cardTrunfo }
+          />))}
+      </>
     );
   }
 }
