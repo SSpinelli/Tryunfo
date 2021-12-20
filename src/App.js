@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './components/Card';
+import DeckOfCards from './components/DeckOfCards';
 import Form from './components/Form';
 
 class App extends React.Component {
@@ -24,6 +25,7 @@ class App extends React.Component {
     this.checkStrings = this.checkStrings.bind(this);
     this.checkNumbers = this.checkNumbers.bind(this);
     this.createCard = this.createCard.bind(this);
+    this.removeCard = this.removeCard.bind(this);
   }
 
   onInputChange({ target }) {
@@ -45,6 +47,7 @@ class App extends React.Component {
       cardAttr2: '0',
       cardAttr3: '0',
       cardRare: '',
+      cardTrunfo: false,
     });
 
     if (cardTrunfo) this.setState({ hasTrunfo: true });
@@ -94,6 +97,18 @@ class App extends React.Component {
       && cardRare.length > 0;
   }
 
+  removeCard(click) {
+    const index2 = click.target.parentElement.id;
+    const { deck } = this.state;
+    console.log(click);
+
+    const newDeck = deck.filter((_card, index) => Number(index2) !== index);
+    const deleteTrunfo = newDeck.some((card) => card.cardTrunfo);
+
+    if (!deleteTrunfo) this.setState({ hasTrunfo: false });
+    this.setState({ deck: newDeck });
+  }
+
   render() {
     const { cardName, cardDescription,
       cardAttr1, cardAttr2, cardAttr3, cardImage,
@@ -124,18 +139,10 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
-        { deck.map((card) => (
-          <Card
-            key={ card.cardName }
-            cardName={ card.cardName }
-            cardDescription={ card.cardDescription }
-            cardAttr1={ card.cardAttr1 }
-            cardAttr2={ card.cardAttr2 }
-            cardAttr3={ card.cardAttr3 }
-            cardImage={ card.cardImage }
-            cardRare={ card.cardRare }
-            cardTrunfo={ card.cardTrunfo }
-          />))}
+        <DeckOfCards
+          deck={ deck }
+          removeCard={ this.removeCard }
+        />
       </>
     );
   }
