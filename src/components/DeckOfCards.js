@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 
 class DeckOfCards extends React.Component {
   render() {
-    const { deck, removeCard } = this.props;
+    const { deck, removeCard, filteredDeck } = this.props;
+    let deckToUse = deck;
+    if (filteredDeck.length) {
+      deckToUse = filteredDeck;
+    }
+
     return (
       <>
-        { deck.map((card, index) => (
+        { deckToUse.map((card, index) => (
           <div key={ index } id={ index }>
             <h2 data-testid="name-card">{ card.cardName }</h2>
             <img data-testid="image-card" src={ card.cardImage } alt={ card.cardName } />
@@ -34,6 +39,7 @@ class DeckOfCards extends React.Component {
 DeckOfCards.propTypes = {
   deck: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeCard: PropTypes.func.isRequired,
+  filteredDeck: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default DeckOfCards;

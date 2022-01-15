@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './components/Card';
 import DeckOfCards from './components/DeckOfCards';
 import Form from './components/Form';
+import Filters from './components/Filters';
 
 class App extends React.Component {
   constructor() {
@@ -18,6 +19,10 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       deck: [],
+      filteredDeck: [],
+      filterName: '',
+      filterRare: '',
+      filterTrunfo: false,
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
@@ -26,6 +31,7 @@ class App extends React.Component {
     this.checkNumbers = this.checkNumbers.bind(this);
     this.createCard = this.createCard.bind(this);
     this.removeCard = this.removeCard.bind(this);
+    this.filterCard = this.filterCard.bind(this);
   }
 
   onInputChange({ target }) {
@@ -100,7 +106,6 @@ class App extends React.Component {
   removeCard(click) {
     const index2 = click.target.parentElement.id;
     const { deck } = this.state;
-    console.log(click);
 
     const newDeck = deck.filter((_card, index) => Number(index2) !== index);
     const deleteTrunfo = newDeck.some((card) => card.cardTrunfo);
@@ -109,10 +114,24 @@ class App extends React.Component {
     this.setState({ deck: newDeck });
   }
 
+  filterCard() {
+    const { deck, filterName } = this.state;
+
+    const newDeck = deck.filter((card) => card.cardName.toUpperCase()
+      .includes(filterName.toUpperCase()));
+
+    if (newDeck.length === 0) {
+      this.setState({ filteredDeck: [] });
+    } else {
+      this.setState({ filteredDeck: newDeck });
+    }
+  }
+
   render() {
     const { cardName, cardDescription,
       cardAttr1, cardAttr2, cardAttr3, cardImage,
-      cardRare, cardTrunfo, hasTrunfo, isSaveButtonDisabled, deck } = this.state;
+      cardRare, cardTrunfo, hasTrunfo, isSaveButtonDisabled, deck,
+      filterName, filterRare, filterTrunfo, filteredDeck } = this.state;
     return (
       <>
         <Form
@@ -139,8 +158,16 @@ class App extends React.Component {
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
         />
+        <Filters
+          filetrName={ filterName }
+          filterRare={ filterRare }
+          filterTrunfo={ filterTrunfo }
+          onInputChange={ this.onInputChange }
+          filterCard={ this.filterCard }
+        />
         <DeckOfCards
           deck={ deck }
+          filteredDeck={ filteredDeck }
           removeCard={ this.removeCard }
         />
       </>
