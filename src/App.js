@@ -32,11 +32,14 @@ class App extends React.Component {
     this.createCard = this.createCard.bind(this);
     this.removeCard = this.removeCard.bind(this);
     this.filterCard = this.filterCard.bind(this);
+    this.filterOnInputChange = this.filterOnInputChange.bind(this);
   }
 
   onInputChange({ target }) {
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ [target.name]: value }, () => this.enableButton());
+    this.setState({ [target.name]: value }, () => {
+      this.enableButton();
+    });
   }
 
   onSaveButtonClick(click) {
@@ -57,6 +60,13 @@ class App extends React.Component {
     });
 
     if (cardTrunfo) this.setState({ hasTrunfo: true });
+  }
+
+  filterOnInputChange({ target }) {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({ [target.name]: value }, () => {
+      this.filterCard();
+    });
   }
 
   createCard() {
@@ -159,14 +169,15 @@ class App extends React.Component {
           cardTrunfo={ cardTrunfo }
         />
         <Filters
-          filetrName={ filterName }
+          filterName={ filterName }
           filterRare={ filterRare }
           filterTrunfo={ filterTrunfo }
-          onInputChange={ this.onInputChange }
+          filterOnInputChange={ this.filterOnInputChange }
           filterCard={ this.filterCard }
         />
         <DeckOfCards
           deck={ deck }
+          filterName={ filterName }
           filteredDeck={ filteredDeck }
           removeCard={ this.removeCard }
         />

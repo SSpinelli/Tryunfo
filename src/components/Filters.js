@@ -3,22 +3,23 @@ import PropTypes from 'prop-types';
 
 class Filters extends React.Component {
   render() {
-    const { onInputChange, filterName, filterRare,
+    const { filterOnInputChange, filterName, filterRare,
       filterTrunfo, filterCard } = this.props;
     return (
       <div>
         <input
           type="text"
+          id="filterName"
           data-testid="name-filter"
           name="filterName"
           value={ filterName }
-          onChange={ onInputChange }
+          onChange={ filterOnInputChange }
         />
         <select
           data-testid="rare-filter"
           name="filterRare"
           value={ filterRare }
-          onChange={ onInputChange }
+          onChange={ filterOnInputChange }
         >
           <option value="normal">Normal</option>
           <option value="raro">Raro</option>
@@ -29,7 +30,7 @@ class Filters extends React.Component {
           name="filterTrunfo"
           data-testid="trunfo-filter"
           checked={ filterTrunfo }
-          onChange={ onInputChange }
+          onChange={ filterOnInputChange }
         />
         <button type="submit" onClick={ filterCard }>Buscar</button>
       </div>
@@ -38,7 +39,7 @@ class Filters extends React.Component {
 }
 
 Filters.propTypes = {
-  onInputChange: PropTypes.func.isRequired,
+  filterOnInputChange: PropTypes.func.isRequired,
   filterName: PropTypes.string.isRequired,
   filterRare: PropTypes.string.isRequired,
   filterTrunfo: PropTypes.bool.isRequired,
