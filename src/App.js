@@ -125,10 +125,24 @@ class App extends React.Component {
   }
 
   filterCard() {
-    const { deck, filterName } = this.state;
+    const { deck, filterName, filterRare, filterTrunfo } = this.state;
 
-    const newDeck = deck.filter((card) => card.cardName.toUpperCase()
-      .includes(filterName.toUpperCase()));
+    const trueName = !!filterName;
+    const trueRare = !!filterRare;
+
+    let newDeck = deck;
+
+    if (trueName) {
+      newDeck = deck.filter((card) => card.cardName.toUpperCase()
+        .includes(filterName.toUpperCase()));
+    }
+    if (trueRare && filterRare !== 'todas') {
+      newDeck = deck.filter((card) => card.cardRare === filterRare);
+    }
+
+    if (filterTrunfo) {
+      newDeck = deck.filter((card) => card.cardTrunfo === filterTrunfo);
+    }
 
     if (newDeck.length === 0) {
       this.setState({ filteredDeck: [] });
@@ -178,6 +192,8 @@ class App extends React.Component {
         <DeckOfCards
           deck={ deck }
           filterName={ filterName }
+          filterRare={ filterRare }
+          filterTrunfo={ filterTrunfo }
           filteredDeck={ filteredDeck }
           removeCard={ this.removeCard }
         />

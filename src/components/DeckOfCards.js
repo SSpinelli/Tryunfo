@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 
 class DeckOfCards extends React.Component {
   render() {
-    const { deck, removeCard, filteredDeck, filterName } = this.props;
+    const { deck, removeCard, filteredDeck,
+      filterName, filterRare, filterTrunfo } = this.props;
     let deckToUse = deck;
     const trueName = !!filterName;
+    const trueFilter = !!filterRare;
 
-    if (trueName) {
+    if (trueName || trueFilter || filterTrunfo) {
       deckToUse = filteredDeck;
     }
 
@@ -43,6 +45,8 @@ DeckOfCards.propTypes = {
   removeCard: PropTypes.func.isRequired,
   filteredDeck: PropTypes.arrayOf(PropTypes.object).isRequired,
   filterName: PropTypes.string.isRequired,
+  filterRare: PropTypes.string.isRequired,
+  filterTrunfo: PropTypes.bool.isRequired,
 };
 
 export default DeckOfCards;

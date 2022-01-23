@@ -21,6 +21,7 @@ class Filters extends React.Component {
           value={ filterRare }
           onChange={ filterOnInputChange }
         >
+          <option value="todas">Todas</option>
           <option value="normal">Normal</option>
           <option value="raro">Raro</option>
           <option value="muito raro">Muito Raro</option>
