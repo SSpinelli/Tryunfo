@@ -1,22 +1,76 @@
 import React from 'react';
 import PropyTypes from 'prop-types';
 
+const ifTrue = (
+  <h3
+    id="trunfo-card"
+    data-testid="trunfo-card"
+    className="current-card"
+  >
+    Super Trunfo
+  </h3>
+);
+
 class Card extends React.Component {
   render() {
     const { cardName, cardDescription,
       cardAttr1, cardAttr2, cardAttr3, cardImage,
       cardRare, cardTrunfo, cardId } = this.props;
     return (
-      <div cardId={ cardId }>
-        <h2 data-testid="name-card">{ cardName }</h2>
-        <img data-testid="image-card" src={ cardImage } alt={ cardName } />
-        <p data-testid="description-card">{ cardDescription }</p>
-        <h3 data-testid="attr1-card">{ cardAttr1 }</h3>
-        <h3 data-testid="attr2-card">{ cardAttr2 }</h3>
-        <h3 data-testid="attr3-card">{ cardAttr3 }</h3>
-        <h3 data-testid="rare-card">{ cardRare }</h3>
-        { cardTrunfo && <h3 data-testid="trunfo-card">Super Trunfo</h3> }
-      </div>
+      <section id="card-section">
+        <div className="card-container" cardId={ cardId }>
+          <h2
+            className="current-card"
+            id="name-card"
+            data-testid="name-card"
+          >
+            { cardName }
+          </h2>
+          <img
+            id="image-card"
+            className="current-card"
+            data-testid="image-card"
+            src={ cardImage }
+            alt={ cardName }
+          />
+          <p
+            className="current-card"
+            id="description-card"
+            data-testid="description-card"
+          >
+            { cardDescription }
+          </p>
+          <h3
+            className="current-card"
+            id="attr1-card"
+            data-testid="attr1-card"
+          >
+            { `Força: ${cardAttr1}` }
+          </h3>
+          <h3
+            className="current-card"
+            id="attr2-card"
+            data-testid="attr2-card"
+          >
+            { `Destreza: ${cardAttr2}` }
+          </h3>
+          <h3
+            className="current-card"
+            id="attr3-card"
+            data-testid="attr3-card"
+          >
+            { `Inteligência: ${cardAttr3}` }
+          </h3>
+          <h3
+            className="current-card"
+            id="rare-card"
+            data-testid="rare-card"
+          >
+            { cardRare }
+          </h3>
+          {cardTrunfo && ifTrue}
+        </div>
+      </section>
     );
   }
 }

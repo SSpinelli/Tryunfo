@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: black;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -15,14 +16,101 @@ code {
 form {
   display: flex;
   flex-direction: column;
-  width: 500px;
-  margin: 0 auto;
+  border: 15px solid #5B6969;
+  background-color: #9EB5B5;
+  padding: 20px;
 }
 
-label {
+label{
   margin-bottom: 20px;
+  margin-left: 10px;
+  color: white;
+}
+
+button {
+  margin-bottom: 20px;
+  margin-left: 10px;
 }
 
 input, textarea, select {
   margin-left: 20px;
+}
+
+h2 {
+  font-size: 35px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
+img {
+  border: 5px solid #454F4F;
+  max-width: 250px;
+  max-height: 150px;
+}
+
+#card-section {
+  display: flex;
+  justify-content: center;
+  background-color: #5b6969;
+  padding: 25px 0;
+}
+
+#form-section {
+  display: flex;
+  justify-content: center;
+  background-color: #454F4F;
+  padding: 25px 0;
+}
+
+#deck-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #454F4F;
+  padding: 25px 0;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #454F4F;
+  padding: 25px 0;
+}
+
+#filter-container {
+  display: flex;
+  margin: 0 auto;
+  border: 15px solid #454F4F;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+  border: 15px solid #454F4F;
+  background-color: #9EB5B5;
+}
+
+.deck-container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+  border: 15px solid #5b6969;
+  background-color: #9EB5B5;
+  margin-bottom: 15px;
+}
+
+.current-card {
+  align-self: center;
+  font-family: monospace;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 35px;
 }

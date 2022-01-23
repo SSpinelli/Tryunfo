@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const ifTrue = (
+  <h4
+    className="current-card"
+    data-testid="trunfo-card"
+  >
+    Super Trunfo
+  </h4>
+);
+
 class DeckOfCards extends React.Component {
   render() {
     const { deck, removeCard, filteredDeck,
@@ -14,18 +23,28 @@ class DeckOfCards extends React.Component {
     }
 
     return (
-      <>
+      <div id="deck-section">
         { deckToUse.map((card, index) => (
-          <div key={ index } id={ index }>
-            <h2 data-testid="name-card">{ card.cardName }</h2>
-            <img data-testid="image-card" src={ card.cardImage } alt={ card.cardName } />
-            <h3 data-testid="attr1-card">{ card.cardAttr1 }</h3>
-            <h3 data-testid="attr2-card">{ card.cardAttr2 }</h3>
-            <h3 data-testid="attr3-card">{ card.cardAttr3 }</h3>
-            <p data-testid="description-card">{ card.cardDescription }</p>
-            <h3 data-testid="rare-card">{ card.cardRare }</h3>
-            { card.cardTrunfo && <h3 data-testid="trunfo-card">Super Trunfo</h3> }
-            <h5 data-testid="numberOfCard">{ index }</h5>
+          <div className="deck-container" key={ index } id={ index }>
+            <h2 className="current-card" data-testid="name-card">{ card.cardName }</h2>
+            <img
+              className="current-card"
+              data-testid="image-card"
+              src={ card.cardImage }
+              alt={ card.cardName }
+            />
+            <h3 className="current-card" data-testid="attr1-card">{ card.cardAttr1 }</h3>
+            <h3 className="current-card" data-testid="attr2-card">{ card.cardAttr2 }</h3>
+            <h3 className="current-card" data-testid="attr3-card">{ card.cardAttr3 }</h3>
+            <p
+              className="current-card"
+              data-testid="description-card"
+            >
+              { card.cardDescription }
+            </p>
+            <h3 className="current-card" data-testid="rare-card">{ card.cardRare }</h3>
+            { card.cardTrunfo && ifTrue }
+            <h5 className="current-card" data-testid="numberOfCard">{ index }</h5>
             <button
               data-testid="delete-button"
               type="button"
@@ -35,7 +54,7 @@ class DeckOfCards extends React.Component {
             </button>
           </div>
         ))}
-      </>
+      </div>
     );
   }
 }
