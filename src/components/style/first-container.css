@@ -1,0 +1,65 @@
+form {
+  background-color: #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  min-height: 580px;
+  padding: 20px;
+}
+
+img {
+  border: 5px solid #454f4f;
+  max-height: 150px;
+  max-width: 250px;
+}
+
+.btn-salvar {
+  border: none;
+  border-bottom: 2px solid #ccc;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.btn-salvar:enabled {
+  background-color: #ffb3b3;
+}
+
+.btn-salvar:disabled {
+  background-color: #e6e6e6;
+}
+
+.first-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-section {
+  align-items: center;
+  display: flex;
+  max-width: 30%;
+  min-width: 17%;
+  padding: 15px 0;
+}
+
+.card-section {
+  align-items: center;
+  display: flex;
+  max-width: 30%;
+  min-width: 17%;
+  padding: 15px 0;
+}
+
+.card-container {
+  align-items: center;
+  background-color: #e6e6e6;
+  border: 10px solid #bfbfbf;
+  box-shadow: 3px 3px #404040;
+  display: flex;
+  flex-direction: column;
+  font-family: monospace;
+  font-size: 17px;
+  justify-content: center;
+  margin: 0 40px;
+  min-height: 620px;
+  min-width: 300px;
+  width: 100%;
+}

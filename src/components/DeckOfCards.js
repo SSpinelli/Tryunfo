@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './style/second-container.css';
 
 const ifTrue = (
   <h4
-    className="current-card"
     data-testid="trunfo-card"
   >
     Super Trunfo
@@ -23,7 +23,7 @@ class DeckOfCards extends React.Component {
     }
 
     return (
-      <div id="deck-section">
+      <div className="deck-section">
         { deckToUse.map((card, index) => (
           <div className="deck-container" key={ index } id={ index }>
             <h2 className="current-card" data-testid="name-card">{ card.cardName }</h2>
@@ -33,20 +33,16 @@ class DeckOfCards extends React.Component {
               src={ card.cardImage }
               alt={ card.cardName }
             />
-            <h3 className="current-card" data-testid="attr1-card">{ card.cardAttr1 }</h3>
-            <h3 className="current-card" data-testid="attr2-card">{ card.cardAttr2 }</h3>
-            <h3 className="current-card" data-testid="attr3-card">{ card.cardAttr3 }</h3>
-            <p
-              className="current-card"
-              data-testid="description-card"
-            >
-              { card.cardDescription }
-            </p>
-            <h3 className="current-card" data-testid="rare-card">{ card.cardRare }</h3>
+            <p data-testid="description-card">{ card.cardDescription }</p>
+            <h3 data-testid="attr1-card">{ `For: ${card.cardAttr1}` }</h3>
+            <h3 data-testid="attr2-card">{ `Des: ${card.cardAttr2}` }</h3>
+            <h3 data-testid="attr3-card">{ `Int: ${card.cardAttr3}` }</h3>
+            <h3 data-testid="rare-card">{ card.cardRare }</h3>
             { card.cardTrunfo && ifTrue }
-            <h5 className="current-card" data-testid="numberOfCard">{ index }</h5>
+            <h5 data-testid="numberOfCard">{ index }</h5>
             <button
               data-testid="delete-button"
+              className="delete-btn"
               type="button"
               onClick={ removeCard }
             >

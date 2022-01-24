@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './style/first-container.css';
 
 class Form extends React.Component {
   render() {
@@ -21,25 +22,25 @@ class Form extends React.Component {
       </label>
     );
     return (
-      <section id="form-section">
+      <section className="form-section">
         <form hasTrunfo={ hasTrunfo }>
-          <h1 className="current-card">Super Tryunfo</h1>
+          <h1>Super Tryunfo</h1>
           <label htmlFor="name">
-            Name:
             <input
               type="text"
               id="name"
               name="cardName"
+              placeholder="Name:"
               data-testid="name-input"
               value={ cardName }
               onChange={ onInputChange }
             />
           </label>
           <label htmlFor="image">
-            Imagem:
             <input
               type="text"
               name="cardImage"
+              placeholder="Url da imagem:"
               id="image"
               data-testid="image-input"
               value={ cardImage }
@@ -47,19 +48,19 @@ class Form extends React.Component {
             />
           </label>
           <label htmlFor="description">
-            Descrição:
             <textarea
               name="cardDescription"
               id="description"
+              placeholder="Descrição"
               data-testid="description-input"
               cols="20"
-              rows="1"
+              rows="3"
               value={ cardDescription }
               onChange={ onInputChange }
             />
           </label>
           <label htmlFor="first-attr">
-            Força:
+            For:
             <input
               type="number"
               name="cardAttr1"
@@ -70,7 +71,7 @@ class Form extends React.Component {
             />
           </label>
           <label htmlFor="second-attr">
-            Destreza:
+            Des:
             <input
               type="number"
               name="cardAttr2"
@@ -81,7 +82,7 @@ class Form extends React.Component {
             />
           </label>
           <label htmlFor="third-attr">
-            Inteligência:
+            Int:
             <input
               type="number"
               name="cardAttr3"
@@ -108,6 +109,7 @@ class Form extends React.Component {
           {hasTrunfo ? <h4>Você Já tem um Super Trunfo em seu baralho</h4> : ifFalse}
           <button
             type="submit"
+            className="btn-salvar"
             onClick={ onSaveButtonClick }
             disabled={ isSaveButtonDisabled }
             data-testid="save-button"

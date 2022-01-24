@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './style/second-container.css';
 
 class Filters extends React.Component {
   render() {
     const { filterOnInputChange, filterName, filterRare,
-      filterTrunfo, filterCard } = this.props;
+      filterTrunfo } = this.props;
     return (
       <section className="filter-section">
-        <h1 className="current-card">Filtros</h1>
+        <h1>Filtros</h1>
         <div id="filter-container">
           <label htmlFor="filterName">
-            Nome da Carta:
             <input
+              placeholder="Nome da Carta:"
               type="text"
               id="filterName"
               data-testid="name-filter"
@@ -46,7 +47,6 @@ class Filters extends React.Component {
               onChange={ filterOnInputChange }
             />
           </label>
-          <button type="submit" onClick={ filterCard }>Buscar</button>
         </div>
       </section>
     );
@@ -58,7 +58,6 @@ Filters.propTypes = {
   filterName: PropTypes.string.isRequired,
   filterRare: PropTypes.string.isRequired,
   filterTrunfo: PropTypes.bool.isRequired,
-  filterCard: PropTypes.func.isRequired,
 };
 
 export default Filters;
